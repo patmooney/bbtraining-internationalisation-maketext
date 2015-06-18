@@ -12,4 +12,9 @@ Serves as a base method for our language lexicons
 
 =head1 SYNOPSIS
 
+    my $lh = MyApp::I18N->get_handle($lang);
+    my $translated_text = $lh->maketext($str);
+
+=cut
+
 1;

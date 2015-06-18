@@ -4,7 +4,7 @@ use strict; use warnings;
 use base q(MyApp::I18N);
 
 our %Lexicon = (
-    'hello world' => 'sausage'
+    'Dog' => 'Chien'
 );
 
 1;
