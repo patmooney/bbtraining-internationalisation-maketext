@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
     <body>
-        <h3>[% capitalise("hello world") %]</h3>
+        <h3>[% translate("hello world") %]</h3>
     </body>
 </html>

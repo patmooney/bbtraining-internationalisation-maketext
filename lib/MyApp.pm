@@ -2,6 +2,7 @@ package MyApp;
 use strict; use warnings;
 
 use Template;
+use MyApp::I18N;
 use HTTP::Server::Simple::CGI;
 use base qw(HTTP::Server::Simple::CGI);
 
@@ -26,7 +27,14 @@ sub index {
     print "Content-Type: text/html\r\n\r\n";
 
     # template->process prints the output unless you pass a var ref as the third param
-    return $self->template()->process('index.html.tt') || $self->template_error();
+    return $self->template()->process(
+        'index.html.tt',
+        {
+            # passing in a method to the template, this allows us to set the language so the template
+            # doesn't need to know about it
+            translate => sub { $self->translate( 'fr', @_ ); }
+        }
+    ) || $self->template_error();
 }
 
 =head2 Template Methods
@@ -53,11 +61,33 @@ sub capitalise_text {
     return uc( $text );
 }
 
-sub translate {
+=item C<translate>
 
+A class method, given a language and a string of text, return any translations we have
+
+Usage:
+
+    my $str = 'hello world';
+    my $out = $self->translate( 'fr', $str );
+
+Out:
+
+    sausages
+
+=cut
+
+sub translate {
+    my ( $self, $lang, $text ) = @_;
+    my $lh = $self->get_language_handle( $lang );
+    return $lh->maketext( $text );
 }
 
+
 # Utilities
+sub get_language_handle {
+    my ( $self, $lang ) = @_;
+    return MyApp::I18N->get_handle( $lang );
+}
 
 sub handle_request {
     my $self = shift;
@@ -101,6 +131,5 @@ sub template {
 
     return $self->{template};
 }
-
 
 1;
