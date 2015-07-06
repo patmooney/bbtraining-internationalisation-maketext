@@ -33,3 +33,11 @@ Tip:
 
     1. Look in lib/MyApp/I18N/
     2. Look at the method we are passing into template toolkit in the index method of MyApp
+
+#### Bonus
+
+Translate the following string using placeholders [examples here](http://search.cpan.org/~toddr/Locale-Maketext-1.26/lib/Locale/Maketext.pod#HOW_TO_USE_MAKETEXT)
+
+"Hello David"
+
+Keep in mind that the name "David" doesn't want to be translated so it shouldn't be part of the key as it is likely to be a variable
